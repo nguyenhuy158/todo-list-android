@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Constants {
-	public static final long   SPLASH_ACTIVITY_TIMEOUT = 1000;
+	public static final long   SPLASH_ACTIVITY_TIMEOUT = 4000;
 	public static final long   FINISH_ACTIVITY_TIMEOUT     = 3000;
 	public static final int    REQUEST_CODE_TODO_TO_DETAIL = 52000668;
 	public static final String CUSTOM_DIALOG               = "CUSTOM_DIALOG";
