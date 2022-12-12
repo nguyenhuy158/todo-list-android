@@ -15,14 +15,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.customanimation.todo.Todo;
 import com.example.customanimation.todo.TodoAdapter;
 import com.google.android.material.textfield.TextInputEditText;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
 		implements View.OnClickListener {
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity
 	boolean             isSwitch  = false;
 	boolean             isYoutube = false;
 	
-	RecyclerView todoList;
+	RecyclerView recyclerViewTodoList;
 	LinearLayout buttonAddTodo;
 	
 	TodoAdapter todoAdapter;
@@ -76,17 +79,29 @@ public class MainActivity extends AppCompatActivity
 	}
 	
 	private void initComponent() {
-		todoList.setLayoutManager(new LinearLayoutManager(this,
-		                                                  RecyclerView.VERTICAL,
-		                                                  false));
+		RecyclerViewDragDropManager dragDropManager = new RecyclerViewDragDropManager();
 		todoAdapter = new TodoAdapter(this,
 		                              R.layout.todo_item);
-		todoList.setAdapter(todoAdapter);
+		RecyclerView.Adapter wrappedAdapter = dragDropManager.createWrappedAdapter(todoAdapter);
+		recyclerViewTodoList.setAdapter(wrappedAdapter);
+		recyclerViewTodoList.setLayoutManager(new LinearLayoutManager(this,
+		                                                              RecyclerView.VERTICAL,
+		                                                              false));
+		
+		// disable change animations
+		((SimpleItemAnimator) recyclerViewTodoList.getItemAnimator()).setSupportsChangeAnimations(false);
+		
+		// [OPTIONAL]
+		// dragDropManager.setInitiateOnTouch(true);
+		// dragDropManager.setInitiateOnLongPress(true);
+		// dragDropManager.setInitiateOnMove(true);
+		
+		dragDropManager.attachRecyclerView(recyclerViewTodoList);
 	}
 	
 	private void bindComponent() {
-		todoList          = findViewById(R.id.todoList);
-		buttonAddTodo     = findViewById(R.id.buttonAddTodo);
+		recyclerViewTodoList = findViewById(R.id.todoList);
+		buttonAddTodo        = findViewById(R.id.buttonAddTodo);
 		textInputTaskName = findViewById(R.id.textInputTaskName);
 		// animationViewSwitchGreen       = findViewById(R.id.animationViewSwitchGreen);
 		// animationViewHeartFav
@@ -99,9 +114,13 @@ public class MainActivity extends AppCompatActivity
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.buttonAddTodo:
+				long uuid = UUID
+						.randomUUID()
+						.getMostSignificantBits() & Long.MAX_VALUE;
 				String taskName = String.valueOf(textInputTaskName.getText());
 				String time = "00:00";
-				Todo todo = new Todo(taskName,
+				Todo todo = new Todo(uuid,
+				                     taskName,
 				                     time);
 				todoAdapter.addTodo(todo);
 				break;

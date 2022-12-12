@@ -11,9 +11,18 @@
 package com.example.customanimation.todo;
 
 public class Todo {
+	long    id;
 	String  taskName;
 	String  time;
 	boolean isDone = false;
+	
+	public Todo(long id,
+	            String taskName,
+	            String time) {
+		this.id       = id;
+		this.taskName = taskName;
+		this.time     = time;
+	}
 	
 	public Todo(String taskName,
 	            String time) {
@@ -27,6 +36,14 @@ public class Todo {
 		this.taskName = taskName;
 		this.time     = time;
 		this.isDone   = isDone;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getTaskName() {
