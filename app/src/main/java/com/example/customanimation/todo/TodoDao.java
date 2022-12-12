@@ -29,9 +29,6 @@ public interface TodoDao {
 	@Query("SELECT * FROM todos WHERE id == :todo_id")
 	Todo getTodo(long todo_id);
 	
-	@Query("")
-	void change(Todo uuidFirst, Todo uuidTodo);
-	
 	@Insert
 	void insert(Todo todo);
 	
