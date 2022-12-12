@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 8:42 AM Nguyen Huy
+  ~
+  ~ todo_list.xml [lastModified: 12/12/22, 8:42 AM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/todoList"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:listitem="@layout/todo_item"
+    >
+
+</androidx.recyclerview.widget.RecyclerView >

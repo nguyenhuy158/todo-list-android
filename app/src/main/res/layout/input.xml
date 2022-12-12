@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 9:13 AM Nguyen Huy
+  ~
+  ~ input.xml [lastModified: 12/12/22, 9:13 AM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/myrect"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    >
+    
+    <!--     input taskname-->
+    <LinearLayout
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        >
+        
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            >
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputTaskName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Task name ..."
+                android:textSize="@dimen/text_size_hint"
+                />
+        </com.google.android.material.textfield.TextInputLayout >
+        
+        <LinearLayout
+            android:id="@+id/buttonAddTodo"
+            android:layout_width="@dimen/button_size_extra_small"
+            android:layout_height="@dimen/button_size_extra_small"
+            >
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_rawRes="@raw/add_task"
+                />
+        </LinearLayout >
+    </LinearLayout >
+    
+    <!--      -->
+</LinearLayout >

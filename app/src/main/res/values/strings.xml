@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (C) 12/12/22, 7:36 AM Nguyen Huy
+  ~
+  ~ strings.xml [lastModified: 12/12/22, 7:08 AM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<resources >
+    <string name="app_name" >CustomAnimation</string >
+</resources >
