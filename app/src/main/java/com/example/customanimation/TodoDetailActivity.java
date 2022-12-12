@@ -33,6 +33,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.customanimation.todo.Todo;
+import com.example.customanimation.todo.TodoDao;
+import com.example.customanimation.todo.TodoDatabase;
 
 import java.util.Calendar;
 
@@ -47,6 +49,8 @@ public class TodoDetailActivity extends AppCompatActivity
 	LottieAnimationView buttonDone;
 	LottieAnimationView buttonSave;
 	Todo                todo;
+	TodoDao             todoDao;
+	
 	private DatePickerDialog.OnDateSetListener date;
 	private TimePickerDialog.OnTimeSetListener time;
 	
@@ -56,10 +60,14 @@ public class TodoDetailActivity extends AppCompatActivity
 		setContentView(R.layout.activity_todo_detail);
 		
 		// get todo item
-		todo = (Todo) getIntent()
-				.getExtras()
-				.getSerializable(BUNDLE_KEY_PUT_TODO);
-		// split 
+		try {
+			todo = (Todo) getIntent()
+					.getExtras()
+					.getSerializable(BUNDLE_KEY_PUT_TODO);
+		} catch (Exception exception) {
+			todo = null;
+		}
+		// split
 		bindView();
 		updateUI();
 		initEventAndData();
@@ -71,6 +79,8 @@ public class TodoDetailActivity extends AppCompatActivity
 	}
 	
 	private void handleEventSave() {
+		buttonSave.setMinAndMaxProgress(0.0f,
+		                                1.0f);
 		buttonSave.playAnimation();
 		
 		String date        = getDate(myCalendar);
@@ -99,21 +109,30 @@ public class TodoDetailActivity extends AppCompatActivity
 		                          FINISH_ACTIVITY_TIMEOUT);
 	}
 	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in,
+		                          android.R.anim.fade_out);
+	}
+	
 	private void updateUI() {
-		textViewTaskName.setText(todo.getTaskName());
-		editTextTime.setText(todo.getTime());
-		editTextDate.setText(todo.getDate());
-		editTextDescription.setText(todo.getDescription());
-		
-		// button done
-		buttonDone.setMinAndMaxProgress(0.0f,
-		                                1.0f);
-		if (todo.isDone()) {
-			buttonDone.setSpeed(1);
-		} else {
-			buttonDone.setSpeed(-1);
+		if (todo != null) {
+			textViewTaskName.setText(todo.getTaskName());
+			editTextTime.setText(todo.getTime());
+			editTextDate.setText(todo.getDate());
+			editTextDescription.setText(todo.getDescription());
+			
+			// button done
+			buttonDone.setMinAndMaxProgress(0.0f,
+			                                1.0f);
+			if (todo.isDone()) {
+				buttonDone.setSpeed(1);
+			} else {
+				buttonDone.setSpeed(-1);
+			}
+			buttonDone.playAnimation();
 		}
-		buttonDone.playAnimation();
 	}
 	
 	private void bindView() {
@@ -126,6 +145,10 @@ public class TodoDetailActivity extends AppCompatActivity
 	}
 	
 	private void initEventAndData() {
+		// todoDao
+		todoDao = TodoDatabase
+				.getInstance(this)
+				.todoDao();
 		// event
 		editTextTime.setOnClickListener(this);
 		editTextDate.setOnClickListener(this);
@@ -172,12 +195,13 @@ public class TodoDetailActivity extends AppCompatActivity
 				buttonDone.setMinAndMaxProgress(0.0f,
 				                                1.0f);
 				if (todo.isDone()) {
-					buttonDone.setSpeed(1);
-				} else {
 					buttonDone.setSpeed(-1);
+				} else {
+					buttonDone.setSpeed(1);
 				}
 				buttonDone.playAnimation();
 				todo.setDone(!todo.isDone());
+				
 				break;
 			case R.id.buttonSave:
 				handleEventSave();

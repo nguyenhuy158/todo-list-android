@@ -24,6 +24,8 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,11 +42,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.customanimation.todo.Todo;
 import com.example.customanimation.todo.TodoAdapter;
+import com.example.customanimation.todo.TodoDao;
+import com.example.customanimation.todo.TodoDatabase;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 public class MainActivity<pulic> extends AppCompatActivity
@@ -68,6 +73,7 @@ public class MainActivity<pulic> extends AppCompatActivity
 	
 	EditText                            textInputTaskName;
 	RecyclerViewTouchActionGuardManager recyclerViewTouchActionGuardManager;
+	TodoDao todoDao;
 	private RecyclerViewDragDropManager recyclerViewDragDropManager;
 	private RecyclerViewSwipeManager    recyclerViewSwipeManager;
 	
@@ -88,8 +94,11 @@ public class MainActivity<pulic> extends AppCompatActivity
 		                       resultCode,
 		                       data);
 		if (requestCode == REQUEST_CODE_TODO_TO_DETAIL && resultCode == RESULT_OK && data != null) {
-			Todo todo = (Todo) data.getExtras().getSerializable(BUNDLE_KEY_PUT_TODO);
+			Todo todo = (Todo) data
+					.getExtras()
+					.getSerializable(BUNDLE_KEY_PUT_TODO);
 			todoAdapter.updateTodo(todo);
+			
 		}
 	}
 	
@@ -153,6 +162,11 @@ public class MainActivity<pulic> extends AppCompatActivity
 	}
 	
 	private void initComponent() {
+		// todoDao
+		todoDao = TodoDatabase
+				.getInstance(MainActivity.this)
+				.todoDao();
+		
 		// calendar
 		updateDate(ediTextDate,
 		           myCalendar);
@@ -222,8 +236,27 @@ public class MainActivity<pulic> extends AppCompatActivity
 				
 			}
 		};
+		
+		//	update todo in revert activity
+		getTodoFromDataBaseAndIntoAdapter();
 	}
 	
+	private void getTodoFromDataBaseAndIntoAdapter() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				List<Todo> todos = todoDao.getTodos();
+				for (Todo todo : todos) {
+					new Handler(Looper.getMainLooper()).post(new Runnable() {
+						@Override
+						public void run() {
+							todoAdapter.addTodo(todo);
+						}
+					});
+				}
+			}
+		}).start();
+	}
 	
 	private void bindComponent() {
 		recyclerViewTodoList = findViewById(R.id.todoList);
@@ -248,32 +281,7 @@ public class MainActivity<pulic> extends AppCompatActivity
 				            CUSTOM_DIALOG);
 				break;
 			case R.id.buttonAddTodo:
-				buttonAddTodo.setMinAndMaxProgress(0.0f,
-				                                   1.0f);
-				buttonAddTodo.playAnimation();
-				
-				
-				long uuid = UUID
-						.randomUUID()
-						.getMostSignificantBits() & Long.MAX_VALUE;
-				String taskName = String.valueOf(textInputTaskName.getText());
-				String time = getTime(myCalendar);
-				String date = getDate(myCalendar);
-				
-				if (taskName == null || taskName.length() == 0 || taskName.isEmpty()) {
-					Animation animation
-							= AnimationUtils.loadAnimation(MainActivity.this,
-							                               R.anim.shake_error);
-					textInputTaskName.startAnimation(animation);
-					textInputTaskName.requestFocus();
-				} else {
-					textInputTaskName.setText(null);
-					Todo todo = new Todo(uuid,
-					                     taskName,
-					                     time,
-					                     date);
-					todoAdapter.addTodo(todo);
-				}
+				handleAddTodo();
 				break;
 			case R.id.animationViewSwitchGreen:
 				if (isSwitch) {
@@ -305,6 +313,41 @@ public class MainActivity<pulic> extends AppCompatActivity
 				break;
 			default:
 				break;
+		}
+	}
+	
+	private void handleAddTodo() {
+		buttonAddTodo.setMinAndMaxProgress(0.0f,
+		                                   1.0f);
+		buttonAddTodo.playAnimation();
+		
+		
+		long uuid = UUID
+				.randomUUID()
+				.getMostSignificantBits() & Long.MAX_VALUE;
+		String taskName = String.valueOf(textInputTaskName.getText());
+		String time     = getTime(myCalendar);
+		String date     = getDate(myCalendar);
+		
+		if (taskName == null || taskName.length() == 0 || taskName.isEmpty()) {
+			Animation animation
+					= AnimationUtils.loadAnimation(MainActivity.this,
+					                               R.anim.shake_error);
+			textInputTaskName.startAnimation(animation);
+			textInputTaskName.requestFocus();
+		} else {
+			textInputTaskName.setText(null);
+			Todo todo = new Todo(uuid,
+			                     taskName,
+			                     time,
+			                     date);
+			todoAdapter.addTodo(todo);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					todoDao.insert(todo);
+				}
+			}).start();
 		}
 	}
 }

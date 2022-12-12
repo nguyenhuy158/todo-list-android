@@ -53,6 +53,7 @@ public class TodoAdapter
 	Context    context;
 	int        layout;
 	List<Todo> todoList = new ArrayList<>();
+	TodoDao    todoDao;
 	
 	
 	// Init
@@ -65,6 +66,9 @@ public class TodoAdapter
 		setHasStableIds(true);
 		this.context = context;
 		this.layout  = layout;
+		todoDao      = TodoDatabase
+				.getInstance(context)
+				.todoDao();
 	}
 	
 	public TodoAdapter(Context context,
@@ -74,6 +78,9 @@ public class TodoAdapter
 		this.context  = context;
 		this.layout   = layout;
 		this.todoList = todoList;
+		todoDao       = TodoDatabase
+				.getInstance(context)
+				.todoDao();
 	}
 	
 	@Override
@@ -106,7 +113,9 @@ public class TodoAdapter
 	public void updateTodo(Todo todo) {
 		int indexTodo = -1;
 		for (int i = 0; i < todoList.size(); i++) {
-			if (todoList.get(i).getId() == todo.getId()) {
+			if (todoList
+					.get(i)
+					.getId() == todo.getId()) {
 				indexTodo = i;
 				break;
 			}
@@ -116,6 +125,22 @@ public class TodoAdapter
 			             todo);
 			notifyItemChanged(indexTodo);
 		}
+		
+		//	update to database
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Todo tempTodo = todoDao.getTodo(todo.getId());
+				tempTodo.setDescription(todo.getDescription());
+				tempTodo.setTime(todo.getTime());
+				tempTodo.setDate(todo.getDate());
+				tempTodo.setTag(todo.getTag());
+				tempTodo.setTaskName(todo.getTaskName());
+				tempTodo.setDone(todo.isDone());
+				
+				todoDao.update(tempTodo);
+			}
+		}).start();
 	}
 	
 	@Override
@@ -148,6 +173,19 @@ public class TodoAdapter
 				}
 				todo.setDone(!todo.isDone());
 				holder.buttonDone.playAnimation();
+				
+				// update todo to database
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						long uuid = todoList
+								.get(position)
+								.getId();
+						Todo todoDaoTodo = todoDao.getTodo(uuid);
+						todoDaoTodo.setDone(todo.isDone());
+						todoDao.update(todoDaoTodo);
+					}
+				}).start();
 			}
 		});
 		
@@ -160,7 +198,9 @@ public class TodoAdapter
 				ActivityOptionsCompat activityOptionsCompat
 						= ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,
 						                                                     holder.textViewTaskName,
-						                                                     holder.textViewTaskName.getTransitionName());
+						                                                     context
+								                                                     .getResources()
+								                                                     .getString(R.string.transitionName_taskName));
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(BUNDLE_KEY_PUT_TODO,
 				                       todo);
@@ -168,6 +208,8 @@ public class TodoAdapter
 				((Activity) context).startActivityForResult(intent,
 				                                            REQUEST_CODE_TODO_TO_DETAIL,
 				                                            activityOptionsCompat.toBundle());
+				// context.startActivity(intent,
+				//                       activityOptionsCompat.toBundle());
 				return false;
 			}
 		});
@@ -209,6 +251,13 @@ public class TodoAdapter
 		Todo removed = todoList.remove(fromPosition);
 		todoList.add(toPosition,
 		             removed);
+		
+		// new Thread(new Runnable() {
+		// 	@Override
+		// 	public void run() {
+		//
+		// 	}
+		// }).start();
 	}
 	
 	@Override
@@ -269,6 +318,18 @@ public class TodoAdapter
 	                                     int position,
 	                                     int result) {
 		if (result == SwipeableItemConstants.RESULT_SWIPED_LEFT || result == SwipeableItemConstants.RESULT_SWIPED_RIGHT) {
+			// remove todo to database
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					long uuid = todoList
+							.get(position)
+							.getId();
+					Todo todo = todoDao.getTodo(uuid);
+					todoDao.delete(todo);
+				}
+			}).start();
+			
 			notifyItemRemoved(position);
 			todoList.remove(position);
 			return new SwipeResultActionMoveToSwipedDirection() {

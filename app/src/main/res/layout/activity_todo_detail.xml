@@ -45,6 +45,7 @@
                 android:scaleX="1.2"
                 android:scaleY="1.2"
                 app:lottie_rawRes="@raw/check"
+                android:transitionName="@string/transitionName_done"
                 />
         </LinearLayout >
         
@@ -54,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/taskName_temp"
-            android:transitionName="@string/transitionName_taskName"
+            android:transitionName ="@string/transitionName_taskName"
             />
     </LinearLayout >
     
@@ -81,6 +82,7 @@
         </LinearLayout >
         
         <EditText
+            android:transitionName="@string/transitionName_date"
             android:id="@+id/editTextDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,6 +118,7 @@
         </LinearLayout >
         
         <EditText
+            android:transitionName="@string/transitionName_time"
             android:id="@+id/editTextTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,6 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_rawRes="@raw/save_button"
+            app:lottie_loop="true"
             />
     </LinearLayout >
 </LinearLayout >

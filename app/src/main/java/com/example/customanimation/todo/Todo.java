@@ -10,10 +10,15 @@
 
 package com.example.customanimation.todo;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "todos")
 public class Todo implements Serializable {
-	long    id;
+	@PrimaryKey
+	long id;
 	String  taskName;
 	String  time;
 	String  date;
@@ -21,27 +26,27 @@ public class Todo implements Serializable {
 	String  description;
 	String  tag;
 	
-	public Todo(long id,
-	            String taskName,
-	            String time) {
-		this.id       = id;
-		this.taskName = taskName;
-		this.time     = time;
-	}
-	
-	public Todo(String taskName,
-	            String time) {
-		this.taskName = taskName;
-		this.time     = time;
-	}
-	
-	public Todo(String taskName,
-	            String time,
-	            boolean isDone) {
-		this.taskName = taskName;
-		this.time     = time;
-		this.isDone   = isDone;
-	}
+	// public Todo(long id,
+	//             String taskName,
+	//             String time) {
+	// 	this.id       = id;
+	// 	this.taskName = taskName;
+	// 	this.time     = time;
+	// }
+	//
+	// public Todo(String taskName,
+	//             String time) {
+	// 	this.taskName = taskName;
+	// 	this.time     = time;
+	// }
+	//
+	// public Todo(String taskName,
+	//             String time,
+	//             boolean isDone) {
+	// 	this.taskName = taskName;
+	// 	this.time     = time;
+	// 	this.isDone   = isDone;
+	// }
 	
 	public Todo(long id,
 	            String taskName,

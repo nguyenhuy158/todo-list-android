@@ -44,6 +44,7 @@
                 android:scaleX="1.2"
                 android:scaleY="1.2"
                 app:lottie_rawRes="@raw/check"
+                android:transitionName="@string/transitionName_done"
                 />
         </LinearLayout >
         
@@ -77,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/date_text"
                     android:textColor="@color/teal_200"
+                    android:transitionName="@string/transitionName_date"
                     />
                 
                 <TextView
@@ -87,6 +89,7 @@
                     android:paddingHorizontal="10dp"
                     android:text="@string/time_text"
                     android:textColor="@android:color/holo_green_light"
+                    android:transitionName="@string/transitionName_time"
                     />
             </LinearLayout >
         </LinearLayout >
