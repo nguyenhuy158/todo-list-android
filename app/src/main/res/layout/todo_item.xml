@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 12/12/22, 8:42 AM Nguyen Huy
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ todo_item.xml [lastModified: 12/12/22, 8:42 AM]
+  ~ todo_item.xml [lastModified: 12/12/22, 1:36 PM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -15,71 +15,92 @@
     android:id="@+id/todoItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="20dp"
-    android:background="@drawable/myrect"
-    android:elevation="10dp"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/background_todo_item"
+    android:elevation="@dimen/elevation"
     >
     
     <!-- for getSwipeAbleContainerView() -->
     <LinearLayout
-        android:orientation="horizontal"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    
-    <!-- Content View(s) -->
-    <LinearLayout
-        android:layout_width="@dimen/button_size_small"
-        android:layout_height="@dimen/button_size_small"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         >
         
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/buttonDone"
+        <!-- Content View(s) -->
+        <LinearLayout
+            android:layout_width="@dimen/button_size_extra_normal"
+            android:layout_height="@dimen/button_size_extra_normal"
+            android:gravity="center"
+            >
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/buttonDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:lottie_rawRes="@raw/check"
+                />
+        </LinearLayout >
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="4dp"
+            >
+            
+            <TextView
+                android:id="@+id/textViewTaskName"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/taskName_temp"
+                android:transitionName="@string/transitionName_taskName"
+                />
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                
+                <TextView
+                    android:id="@+id/textViewDate"
+                    style="@style/TextAppearance.Compat.Notification.Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_text"
+                    android:textColor="@color/teal_200"
+                    />
+                
+                <TextView
+                    android:id="@+id/textViewTime"
+                    style="@style/TextAppearance.Compat.Notification.Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/time_text"
+                    android:textColor="@android:color/holo_green_light"
+                    />
+            </LinearLayout >
+        </LinearLayout >
+        
+        <!-- Drag handle -->
+        <ImageView
+            android:id="@+id/drag_handle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
-            app:lottie_rawRes="@raw/check"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="10dp"
+            android:src="@drawable/ic_round_drag_handle"
             />
-    </LinearLayout >
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="4dp"
-        >
-        
-        <TextView
-            android:id="@+id/textViewTaskName"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Coding ..."
-            />
-        
-        <TextView
-            android:id="@+id/textViewTime"
-            style="@style/TextAppearance.Compat.Notification.Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="@android:color/holo_green_light"
-            />
-    </LinearLayout >
     
-    <!-- Drag handle -->
-    <ImageView
-        android:layout_gravity="center_vertical"
-        android:id="@+id/drag_handle"
-        android:layout_width="wrap_content"
-        android:src="@drawable/ic_round_drag_handle"
-        android:layout_height="wrap_content"/>
-
-    </LinearLayout>
+    </LinearLayout >
 
 </LinearLayout >

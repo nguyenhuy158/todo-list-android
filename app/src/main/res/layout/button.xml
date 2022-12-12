@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 12/12/22, 8:40 AM Nguyen Huy
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ button.xml [lastModified: 12/12/22, 8:40 AM]
+  ~ button.xml [lastModified: 12/12/22, 8:42 AM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -24,8 +24,8 @@
         >
         
         <LinearLayout
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
+            android:layout_width="@dimen/button_size_normal"
+            android:layout_height="@dimen/button_size_normal"
             android:background="@drawable/round"
             >
             
@@ -48,8 +48,8 @@
         >
         
         <LinearLayout
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
+            android:layout_width="@dimen/button_size_normal"
+            android:layout_height="@dimen/button_size_normal"
             android:background="@drawable/round"
             >
             
@@ -71,8 +71,8 @@
         >
         
         <LinearLayout
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
+            android:layout_width="@dimen/button_size_normal"
+            android:layout_height="@dimen/button_size_normal"
             android:background="@drawable/round"
             >
             

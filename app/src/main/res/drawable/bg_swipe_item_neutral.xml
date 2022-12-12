@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
+  ~
+  ~ bg_swipe_item_neutral.xml [lastModified: 12/12/22, 11:49 AM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<color xmlns:android="http://schemas.android.com/apk/res/android"
+       android:color="@color/bg_swipe_item_neutral"
+    />

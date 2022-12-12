@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
+  ~
+  ~ shake_error.xml [lastModified: 12/12/22, 2:26 PM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+           android:duration="400"
+           android:fromXDelta="0%"
+           android:interpolator="@anim/two_cycle_interpolator"
+           android:toXDelta="8%"
+    />

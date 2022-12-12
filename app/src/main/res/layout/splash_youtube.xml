@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
+  ~
+  ~ splash_youtube.xml [lastModified: 12/12/22, 12:45 PM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/youtube_icon_size"
+    android:layout_height="@dimen/youtube_icon_size"
+    >
+    
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationViewYoutubeIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/youtube_icon"
+        />
+</LinearLayout >

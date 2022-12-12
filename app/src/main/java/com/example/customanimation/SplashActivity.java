@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 12/12/22, 8:06 AM Nguyen Huy
+ * Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
  *
- * splashActivity.java [lastModified: 12/12/22, 8:06 AM]
+ * SplashActivity.java [lastModified: 12/12/22, 12:54 PM]
  *
  * Contact:
  * facebook: https://www.facebook.com/nguyenhuy158/
@@ -9,6 +9,8 @@
  */
 
 package com.example.customanimation;
+
+import static com.example.customanimation.constants.Constants.SPLASH_ACTIVITY_TIMEOUT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +23,6 @@ import com.airbnb.lottie.LottieAnimationView;
 
 public class SplashActivity extends AppCompatActivity {
 	
-	private static final long SPLASH_ACTIVITY_TIMEOUT = 2000;
 	LottieAnimationView animationViewYoutubeIcon;
 	
 	@Override

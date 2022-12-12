@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 12/12/22, 7:36 AM Nguyen Huy
+ * Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
  *
- * ExampleInstrumentedTest.java [lastModified: 12/12/22, 7:08 AM]
+ * ExampleInstrumentedTest.java [lastModified: 12/12/22, 7:38 AM]
  *
  * Contact:
  * facebook: https://www.facebook.com/nguyenhuy158/

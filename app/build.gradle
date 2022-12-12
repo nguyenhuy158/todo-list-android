@@ -40,6 +40,7 @@ dependencies {
     // Custom library
     def lottieVersion = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
     def VERSION_CODE_GOES_HERE = "1.0.0"
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0@aar') {
         transitive = true

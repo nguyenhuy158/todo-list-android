@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 12/12/22, 8:51 AM Nguyen Huy
+ * Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
  *
- * todo.java [lastModified: 12/12/22, 8:51 AM]
+ * Todo.java [lastModified: 12/12/22, 10:47 AM]
  *
  * Contact:
  * facebook: https://www.facebook.com/nguyenhuy158/
@@ -10,11 +10,16 @@
 
 package com.example.customanimation.todo;
 
-public class Todo {
+import java.io.Serializable;
+
+public class Todo implements Serializable {
 	long    id;
 	String  taskName;
 	String  time;
+	String  date;
 	boolean isDone = false;
+	String  description;
+	String  tag;
 	
 	public Todo(long id,
 	            String taskName,
@@ -36,6 +41,40 @@ public class Todo {
 		this.taskName = taskName;
 		this.time     = time;
 		this.isDone   = isDone;
+	}
+	
+	public Todo(long id,
+	            String taskName,
+	            String time,
+	            String date) {
+		this.id       = id;
+		this.taskName = taskName;
+		this.time     = time;
+		this.date     = date;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public String getTag() {
+		return tag;
+	}
+	
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	public long getId() {

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (C) 12/12/22, 7:36 AM Nguyen Huy
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ colors.xml [lastModified: 12/12/22, 7:08 AM]
+  ~ colors.xml [lastModified: 12/12/22, 11:50 AM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -17,4 +16,12 @@
     <color name="teal_700" >#FF018786</color >
     <color name="black" >#FF000000</color >
     <color name="white" >#FFFFFFFF</color >
+    
+    <!--     Custom -->
+    <color name="bg_swipe_item_neutral" >@android:color/transparent</color >
+    <color name="bg_swipe_item_pinned" >#fff9930d</color >
+    <color name="bg_swipe_item_dismiss" >#ff2f8b2a</color >
+    <color name="bg_swipe_item_gray" >#999999</color >
+    <color name="bg_swipe_group_item_pinned" >#fff45f30</color >
+    <color name="bg_swipe_group_item_dismiss" >#ff295db3</color >
 </resources >

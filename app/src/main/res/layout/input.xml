@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 12/12/22, 9:13 AM Nguyen Huy
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ input.xml [lastModified: 12/12/22, 9:13 AM]
+  ~ input.xml [lastModified: 12/12/22, 2:15 PM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -13,10 +13,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@drawable/myrect"
-    android:elevation="2dp"
+    android:layout_margin="@dimen/margin"
+    android:background="@drawable/background_todo_item"
+    android:elevation="@dimen/elevation"
     android:orientation="vertical"
+    android:padding="1dp"
     >
     
     <!--     input taskname-->
@@ -30,33 +31,72 @@
         >
         
         
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:boxBackgroundColor="@android:color/transparent"
+            android:orientation="vertical"
             >
             
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/textInputTaskName"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_todo_item"
                 android:hint="Task name ..."
-                android:textSize="@dimen/text_size_hint"
+                android:maxLines="1"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp"
                 />
-        </com.google.android.material.textfield.TextInputLayout >
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_todo_item"
+                    android:cursorVisible="false"
+                    android:elevation="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:padding="4dp"
+                    android:text="@string/date_text"
+                    android:textAlignment="center"
+                    />
+                
+                <EditText
+                    android:id="@+id/editTextTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_todo_item"
+                    android:cursorVisible="false"
+                    android:elevation="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:padding="4dp"
+                    android:text="@string/time_text"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout >
+        </LinearLayout >
         
         <LinearLayout
-            android:id="@+id/buttonAddTodo"
-            android:layout_width="@dimen/button_size_extra_small"
-            android:layout_height="@dimen/button_size_extra_small"
+            android:layout_width="@dimen/button_size_normal"
+            android:layout_height="@dimen/button_size_normal"
             >
             
             <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:lottie_rawRes="@raw/add_task"
+                android:id="@+id/buttonAddTodo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_rawRes="@raw/add"
                 />
         </LinearLayout >
     </LinearLayout >

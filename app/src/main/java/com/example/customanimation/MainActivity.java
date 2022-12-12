@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 12/12/22, 7:36 AM Nguyen Huy
+ * Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
  *
- * MainActivity.java [lastModified: 12/12/22, 7:24 AM]
+ * MainActivity.java [lastModified: 12/12/22, 2:25 PM]
  *
  * Contact:
  * facebook: https://www.facebook.com/nguyenhuy158/
@@ -10,38 +10,66 @@
 
 package com.example.customanimation;
 
+import static com.example.customanimation.constants.Constants.BUNDLE_KEY_PUT_TODO;
+import static com.example.customanimation.constants.Constants.CUSTOM_DIALOG;
+import static com.example.customanimation.constants.Constants.REQUEST_CODE_TODO_TO_DETAIL;
+import static com.example.customanimation.constants.Constants.getDate;
+import static com.example.customanimation.constants.Constants.getTime;
+import static com.example.customanimation.constants.Constants.updateDate;
+import static com.example.customanimation.constants.Constants.updateTime;
+
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.customanimation.todo.Todo;
 import com.example.customanimation.todo.TodoAdapter;
-import com.google.android.material.textfield.TextInputEditText;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
+import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
 
+import java.util.Calendar;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity<pulic> extends AppCompatActivity
 		implements View.OnClickListener {
+	final Calendar myCalendar = Calendar.getInstance();
+	DatePickerDialog.OnDateSetListener date;
+	TimePickerDialog.OnTimeSetListener time;
+	LottieAnimationView                animationViewSwitchGreen;
+	LottieAnimationView                animationViewHeartFav;
+	LottieAnimationView                animationViewYoutubeLikeButton;
+	boolean                            isSwitch  = false;
+	boolean                            isYoutube = false;
 	
-	LottieAnimationView animationViewSwitchGreen;
-	LottieAnimationView animationViewHeartFav;
-	LottieAnimationView animationViewYoutubeLikeButton;
-	boolean             isSwitch  = false;
-	boolean             isYoutube = false;
-	
-	RecyclerView recyclerViewTodoList;
-	LinearLayout buttonAddTodo;
+	RecyclerView        recyclerViewTodoList;
+	LottieAnimationView buttonAddTodo;
+	Button              buttonDemo;
 	
 	TodoAdapter todoAdapter;
+	EditText    ediTextDate;
+	EditText    ediTextTime;
 	
-	TextInputEditText textInputTaskName;
+	EditText                            textInputTaskName;
+	RecyclerViewTouchActionGuardManager recyclerViewTouchActionGuardManager;
+	private RecyclerViewDragDropManager recyclerViewDragDropManager;
+	private RecyclerViewSwipeManager    recyclerViewSwipeManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +78,46 @@ public class MainActivity extends AppCompatActivity
 		bindComponent();
 		initComponent();
 		setEvent();
-		
-		// todoAdapter.add(new Todo("Code 1",
-		//                          "00:01"));
-		
-		// // handler
-		// new Handler().postDelayed(new Runnable() {
-		// 	                          @Override
-		// 	                          public void run() {
-		//
-		// 		                          todoAdapter.add(new Todo("Code 2",
-		// 		                                                   "00:01"));
-		// 		                          todoAdapter.add(new Todo("Code 3",
-		// 		                                                   "00:01"));
-		// 	                          }
-		//                           },
-		//                           1000);
-		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode,
+	                                int resultCode,
+	                                @Nullable Intent data) {
+		super.onActivityResult(requestCode,
+		                       resultCode,
+		                       data);
+		if (requestCode == REQUEST_CODE_TODO_TO_DETAIL && resultCode == RESULT_OK && data != null) {
+			Todo todo = (Todo) data.getExtras().getSerializable(BUNDLE_KEY_PUT_TODO);
+			todoAdapter.updateTodo(todo);
+		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(MainActivity.this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle("Closing")
+				.setMessage("Are you sure you want to close app 😭?")
+				.setPositiveButton("Yes",
+				                   new DialogInterface.OnClickListener() {
+					                   @Override
+					                   public void onClick(DialogInterface dialog,
+					                                       int which) {
+						                   finish();
+					                   }
+					
+				                   })
+				.setNegativeButton("No",
+				                   null)
+				.show();
+	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.activity_fade_in,
+		                          R.anim.activity_fade_out);
 	}
 	
 	private void setEvent() {
@@ -76,33 +127,111 @@ public class MainActivity extends AppCompatActivity
 		// animationViewYoutubeLikeButton.setOnClickListener(this);
 		
 		buttonAddTodo.setOnClickListener(this);
+		buttonDemo.setOnClickListener(this);
+		ediTextDate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				
+				new DatePickerDialog(MainActivity.this,
+				                     date,
+				                     myCalendar.get(Calendar.YEAR),
+				                     myCalendar.get(Calendar.MONTH),
+				                     myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+			}
+		});
+		ediTextTime.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				
+				new TimePickerDialog(MainActivity.this,
+				                     time,
+				                     myCalendar.get(Calendar.HOUR_OF_DAY),
+				                     myCalendar.get(Calendar.MINUTE),
+				                     true).show();
+			}
+		});
 	}
 	
 	private void initComponent() {
-		RecyclerViewDragDropManager dragDropManager = new RecyclerViewDragDropManager();
-		todoAdapter = new TodoAdapter(this,
-		                              R.layout.todo_item);
-		RecyclerView.Adapter wrappedAdapter = dragDropManager.createWrappedAdapter(todoAdapter);
-		recyclerViewTodoList.setAdapter(wrappedAdapter);
+		// calendar
+		updateDate(ediTextDate,
+		           myCalendar);
+		updateTime(ediTextTime,
+		           myCalendar);
+		
+		// recycler view
+		RecyclerViewDragDropManager recyclerViewDragDropManager
+				= new RecyclerViewDragDropManager();
+		RecyclerViewSwipeManager recyclerViewSwipeManager
+				= new RecyclerViewSwipeManager();
 		recyclerViewTodoList.setLayoutManager(new LinearLayoutManager(this,
 		                                                              RecyclerView.VERTICAL,
 		                                                              false));
 		
+		// v1.0 drag
+		todoAdapter = new TodoAdapter(this,
+		                              R.layout.todo_item);
+		RecyclerView.Adapter wrappedAdapter
+				= recyclerViewDragDropManager.createWrappedAdapter(todoAdapter);
+		wrappedAdapter
+				= recyclerViewSwipeManager.createWrappedAdapter(wrappedAdapter);
+		recyclerViewTodoList.setAdapter(wrappedAdapter);
+		
+		
 		// disable change animations
-		((SimpleItemAnimator) recyclerViewTodoList.getItemAnimator()).setSupportsChangeAnimations(false);
+		// ((SimpleItemAnimator) recyclerViewTodoList.getItemAnimator()).setSupportsChangeAnimations(false);
 		
 		// [OPTIONAL]
-		// dragDropManager.setInitiateOnTouch(true);
-		// dragDropManager.setInitiateOnLongPress(true);
-		// dragDropManager.setInitiateOnMove(true);
+		recyclerViewDragDropManager.setInitiateOnTouch(true);
+		recyclerViewDragDropManager.setInitiateOnLongPress(true);
+		recyclerViewDragDropManager.setInitiateOnMove(true);
 		
-		dragDropManager.attachRecyclerView(recyclerViewTodoList);
+		recyclerViewDragDropManager.attachRecyclerView(recyclerViewTodoList);
+		recyclerViewSwipeManager.attachRecyclerView(recyclerViewTodoList);
+		
+		
+		// date time picker
+		date = new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker view,
+			                      int year,
+			                      int month,
+			                      int day) {
+				myCalendar.set(Calendar.YEAR,
+				               year);
+				myCalendar.set(Calendar.MONTH,
+				               month);
+				myCalendar.set(Calendar.DAY_OF_MONTH,
+				               day);
+				updateDate(ediTextDate,
+				           myCalendar);
+			}
+		};
+		
+		time = new TimePickerDialog.OnTimeSetListener() {
+			@Override
+			public void onTimeSet(TimePicker view,
+			                      int hourOfDay,
+			                      int minute) {
+				myCalendar.set(Calendar.HOUR_OF_DAY,
+				               hourOfDay);
+				myCalendar.set(Calendar.MINUTE,
+				               minute);
+				updateTime(ediTextTime,
+				           myCalendar);
+				
+			}
+		};
 	}
+	
 	
 	private void bindComponent() {
 		recyclerViewTodoList = findViewById(R.id.todoList);
 		buttonAddTodo        = findViewById(R.id.buttonAddTodo);
-		textInputTaskName = findViewById(R.id.textInputTaskName);
+		textInputTaskName    = findViewById(R.id.textInputTaskName);
+		buttonDemo           = findViewById(R.id.buttonDemo);
+		ediTextDate          = findViewById(R.id.editTextDate);
+		ediTextTime          = findViewById(R.id.editTextTime);
 		// animationViewSwitchGreen       = findViewById(R.id.animationViewSwitchGreen);
 		// animationViewHeartFav
 		//                                = findViewById(R.id.animationViewHeartFav);
@@ -113,16 +242,38 @@ public class MainActivity extends AppCompatActivity
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+			case R.id.buttonDemo:
+				CustomDialogFragment dialog = new CustomDialogFragment();
+				dialog.show(getSupportFragmentManager(),
+				            CUSTOM_DIALOG);
+				break;
 			case R.id.buttonAddTodo:
+				buttonAddTodo.setMinAndMaxProgress(0.0f,
+				                                   1.0f);
+				buttonAddTodo.playAnimation();
+				
+				
 				long uuid = UUID
 						.randomUUID()
 						.getMostSignificantBits() & Long.MAX_VALUE;
 				String taskName = String.valueOf(textInputTaskName.getText());
-				String time = "00:00";
-				Todo todo = new Todo(uuid,
-				                     taskName,
-				                     time);
-				todoAdapter.addTodo(todo);
+				String time = getTime(myCalendar);
+				String date = getDate(myCalendar);
+				
+				if (taskName == null || taskName.length() == 0 || taskName.isEmpty()) {
+					Animation animation
+							= AnimationUtils.loadAnimation(MainActivity.this,
+							                               R.anim.shake_error);
+					textInputTaskName.startAnimation(animation);
+					textInputTaskName.requestFocus();
+				} else {
+					textInputTaskName.setText(null);
+					Todo todo = new Todo(uuid,
+					                     taskName,
+					                     time,
+					                     date);
+					todoAdapter.addTodo(todo);
+				}
 				break;
 			case R.id.animationViewSwitchGreen:
 				if (isSwitch) {

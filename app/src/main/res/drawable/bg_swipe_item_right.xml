@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
+  ~
+  ~ bg_swipe_item_right.xml [lastModified: 12/12/22, 11:52 AM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="@color/bg_swipe_item_dismiss"/>
+    </item>
+    <item android:left="16dp">
+        <bitmap
+            android:src="@drawable/ic_item_swipe_dismiss"
+            android:gravity="left|center_vertical"/>
+    </item>
+</layer-list>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 12/12/22, 7:36 AM Nguyen Huy
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ dimens.xml [lastModified: 12/12/22, 7:32 AM]
+  ~ dimens.xml [lastModified: 12/12/22, 1:36 PM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -10,10 +10,16 @@
 
 <resources >
     <dimen name="width_stroke" >1.2dp</dimen >
-    <dimen name="button_size" >80dp</dimen >
+    <dimen name="button_size_normal" >80dp</dimen >
     <dimen name="youtube_icon_size" >100dp</dimen >
+    <dimen name="button_size_extra_normal" >65dp</dimen >
     <dimen name="button_size_small" >50dp</dimen >
     <dimen name="button_size_extra_small" >30dp</dimen >
     <dimen name="text_size_hint" >14sp</dimen >
     <dimen name="margin" >12dp</dimen >
+    <dimen name="small_margin" >8dp</dimen >
+    <dimen name="extra_small_margin" >4dp</dimen >
+    <dimen name="dialog_width" >400dp</dimen >
+    <dimen name="elevation" >5dp</dimen >
+    <dimen name="large_elevation" >8dp</dimen >
 </resources >

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 12/12/22, 8:06 AM Nguyen Huy
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
   ~
-  ~ activity_splash.xml [lastModified: 12/12/22, 8:06 AM]
+  ~ activity_splash.xml [lastModified: 12/12/22, 12:52 PM]
   ~
   ~ Contact:
   ~ facebook: https://www.facebook.com/nguyenhuy158/
@@ -14,21 +14,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".SplashActivity"
+    android:gravity="center"
     >
-    <LinearLayout
-        android:layout_width="@dimen/youtube_icon_size"
-        android:layout_height="@dimen/youtube_icon_size"
-        >
-        
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationViewYoutubeIcon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:lottie_rawRes="@raw/youtube_icon"
-            app:lottie_autoPlay="true"
-            />
-    </LinearLayout >
+    <!--     <include layout="@layout/splash_youtube"/> -->
+        <include layout="@layout/splash_todo"/>
 </LinearLayout >

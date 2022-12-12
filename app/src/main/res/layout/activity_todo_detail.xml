@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 3:23 PM Nguyen Huy
+  ~
+  ~ activity_todo_detail.xml [lastModified: 12/12/22, 3:23 PM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:background="@drawable/background_todo_item"
+    android:elevation="@dimen/elevation"
+    android:orientation="vertical"
+    android:padding="@dimen/margin"
+    tools:context=".TodoDetailActivity"
+    >
+    <!--     android:gravity="center" -->
+    
+    <!--     header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+        
+        <!--         check -->
+        <LinearLayout
+            android:layout_width="@dimen/button_size_normal"
+            android:layout_height="@dimen/button_size_normal"
+            android:gravity="center"
+            >
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/buttonDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:lottie_rawRes="@raw/check"
+                />
+        </LinearLayout >
+        
+        <TextView
+            android:id="@+id/textViewTaskName"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/taskName_temp"
+            android:transitionName="@string/transitionName_taskName"
+            />
+    </LinearLayout >
+    
+    <!--     body -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:gravity="center_vertical"
+        >
+        
+        <LinearLayout
+            android:layout_width="@dimen/button_size_extra_small"
+            android:layout_height="@dimen/button_size_extra_small"
+            >
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/ic_date"
+                />
+        </LinearLayout >
+        
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@drawable/background_todo_item"
+            android:cursorVisible="false"
+            android:elevation="5dp"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:padding="4dp"
+            android:text="12/12/2022"
+            android:textAlignment="center"
+            />
+        
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin"
+            />
+        
+        <LinearLayout
+            android:layout_width="@dimen/button_size_extra_small"
+            android:layout_height="@dimen/button_size_extra_small"
+            >
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/ic_time"
+                />
+        </LinearLayout >
+        
+        <EditText
+            android:id="@+id/editTextTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@drawable/background_todo_item"
+            android:cursorVisible="false"
+            android:elevation="5dp"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:padding="4dp"
+            android:text="@string/time_text"
+            android:textAlignment="center"
+            />
+    </LinearLayout >
+    
+    <!--     description -->
+    <EditText
+        android:layout_margin="@dimen/elevation"
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_todo_item"
+        android:elevation="@dimen/elevation"
+        android:gravity="top|start"
+        android:hint="@string/hint_description"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:padding="@dimen/margin"
+        android:transitionName="@string/transitionName_taskName"
+        />
+    
+    <!--     button save -->
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/small_margin"
+        android:gravity="center"
+        android:elevation="@dimen/elevation"
+        >
+        
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/save_button"
+            />
+    </LinearLayout >
+</LinearLayout >

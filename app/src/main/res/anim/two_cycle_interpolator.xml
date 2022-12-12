@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 12/12/22, 2:26 PM Nguyen Huy
+  ~
+  ~ two_cycle_interpolator.xml [lastModified: 12/12/22, 2:26 PM]
+  ~
+  ~ Contact:
+  ~ facebook: https://www.facebook.com/nguyenhuy158/
+  ~ github: https://www.github.com/nguyenhuy158/
+  -->
+
+<cycleInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:cycles="2"
+    />
