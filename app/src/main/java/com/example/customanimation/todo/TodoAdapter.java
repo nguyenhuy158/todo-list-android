@@ -319,12 +319,12 @@ public class TodoAdapter
 	                                     int result) {
 		if (result == SwipeableItemConstants.RESULT_SWIPED_LEFT || result == SwipeableItemConstants.RESULT_SWIPED_RIGHT) {
 			// remove todo to database
+			long uuid = todoList
+					.get(position)
+					.getId();
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					long uuid = todoList
-							.get(position)
-							.getId();
 					Todo todo = todoDao.getTodo(uuid);
 					todoDao.delete(todo);
 				}

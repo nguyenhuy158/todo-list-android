@@ -131,9 +131,9 @@ public class MainActivity<pulic> extends AppCompatActivity
 	
 	private void setEvent() {
 		// set onClick
-		// animationViewSwitchGreen.setOnClickListener(this);
-		// animationViewHeartFav.setOnClickListener(this);
-		// animationViewYoutubeLikeButton.setOnClickListener(this);
+		animationViewSwitchGreen.setOnClickListener(this);
+		animationViewHeartFav.setOnClickListener(this);
+		animationViewYoutubeLikeButton.setOnClickListener(this);
 		
 		buttonAddTodo.setOnClickListener(this);
 		buttonDemo.setOnClickListener(this);
@@ -265,11 +265,11 @@ public class MainActivity<pulic> extends AppCompatActivity
 		buttonDemo           = findViewById(R.id.buttonDemo);
 		ediTextDate          = findViewById(R.id.editTextDate);
 		ediTextTime          = findViewById(R.id.editTextTime);
-		// animationViewSwitchGreen       = findViewById(R.id.animationViewSwitchGreen);
-		// animationViewHeartFav
-		//                                = findViewById(R.id.animationViewHeartFav);
-		// animationViewYoutubeLikeButton
-		//                                = findViewById(R.id.animationViewYoutubeLikeButton);
+		animationViewSwitchGreen       = findViewById(R.id.animationViewSwitchGreen);
+		animationViewHeartFav
+		                               = findViewById(R.id.animationViewHeartFav);
+		animationViewYoutubeLikeButton
+		                               = findViewById(R.id.animationViewYoutubeLikeButton);
 	}
 	
 	@Override

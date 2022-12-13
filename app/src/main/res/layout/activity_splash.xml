@@ -17,6 +17,7 @@
     tools:context=".SplashActivity"
     android:gravity="center"
     >
-    <!--     <include layout="@layout/splash_youtube"/> -->
+<!--         <include layout="@layout/splash_youtube"/> -->
         <include layout="@layout/splash_todo"/>
+        
 </LinearLayout >

@@ -17,6 +17,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
+    
     <TextView
         style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="wrap_content"
@@ -25,10 +26,12 @@
         android:text="Todo list"
         />
     
-    <!--     <include layout="@layout/button"/> -->
+    <include android:visibility="gone" layout="@layout/button" />
     
     <include layout="@layout/input" />
+    
     <include layout="@layout/todo_list" />
+    
     <Button
         android:id="@+id/buttonDemo"
         android:layout_width="wrap_content"
