@@ -64,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/taskName_temp"
                 android:transitionName="@string/transitionName_taskName"
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
             
             <LinearLayout
